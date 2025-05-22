@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Galeri Kenangan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Open Sans', sans-serif;
+      background: #000; /* Supaya efek cinta lebih terlihat */
+      overflow-x: hidden;
+      color: #fff;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      text-align: center;
+      font-size: 36px;
+      color: #ff69b4;
+      text-shadow: 0 0 8px #ff69b4;
+    }
+
+    .gallery-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+      transition: transform 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .back-button-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    a.back {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #ff69b4;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 4px #c2185b;
+    }
+
+    a.back:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #c2185b;
+    }
+
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Floating hearts background */
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: #ff69b4;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+      opacity: 0.8;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+      }
+      100% {
+        transform: translateY(-120vh) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Galeri Kenangan</h1>
+
+  <div class="gallery-container">
+    <div class="gallery">
+      <!-- Gambar -->
+      <img src="images/a.jpg" alt="Foto A" onclick="openLightbox(this.src)">
+      <img src="images/b.jpg" alt="Foto B" onclick="openLightbox(this.src)">
+      <img src="images/c.jpg" alt="Foto C" onclick="openLightbox(this.src)">
+      <img src="images/d.jpg" alt="Foto D" onclick="openLightbox(this.src)">
+      <img src="images/e.jpg" alt="Foto E" onclick="openLightbox(this.src)">
+      <img src="images/f.jpg" alt="Foto F" onclick="openLightbox(this.src)">
+      <img src="images/g.jpg" alt="Foto G" onclick="openLightbox(this.src)">
+      <img src="images/h.jpg" alt="Foto H" onclick="openLightbox(this.src)">
+      <img src="images/i.jpg" alt="Foto I" onclick="openLightbox(this.src)">
+      <img src="images/j.jpg" alt="Foto J" onclick="openLightbox(this.src)">
+      <img src="images/k.jpg" alt="Foto K" onclick="openLightbox(this.src)">
+      <img src="images/l.jpg" alt="Foto L" onclick="openLightbox(this.src)">
+      <img src="images/m.jpg" alt="Foto M" onclick="openLightbox(this.src)">
+      <img src="images/n.jpg" alt="Foto N" onclick="openLightbox(this.src)">
+      <img src="images/o.jpg" alt="Foto O" onclick="openLightbox(this.src)">
+      <img src="images/p.jpg" alt="Foto P" onclick="openLightbox(this.src)">
+      <img src="images/q.jpg" alt="Foto Q" onclick="openLightbox(this.src)">
+      <img src="images/r.jpg" alt="Foto R" onclick="openLightbox(this.src)">
+      <img src="images/s.jpg" alt="Foto S" onclick="openLightbox(this.src)">
+      <img src="images/t.jpg" alt="Foto T" onclick="openLightbox(this.src)">
+      <!-- ... lanjut sampai s -->
+    </div>
+  </div>
+
+  <div class="back-button-container">
+    <a class="back" href="index.html">Kembali ke Halaman Utama</a>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <a href="#" class="lightbox-close" onclick="closeLightbox()">×</a>
+    <img id="lightbox-img" src="" alt="Full Image">
+  </div>
+
+  <!-- Floating hearts -->
+  <script>
+    function openLightbox(src) {
+      document.getElementById("lightbox-img").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    // Floating hearts logic
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+    }
+  </script>
+
+</body>
+</html>

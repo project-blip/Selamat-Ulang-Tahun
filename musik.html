@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Winamp Style Music Player</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffccd5, #d291bc);
+      color: #fff0f5;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      padding: 50px;
+    }
+
+    .winamp-container {
+      background: #3b1f2b;
+      border: 2px solid #ff99cc;
+      padding: 20px;
+      width: 400px;
+      box-shadow: 0 0 20px #ff99cc;
+      border-radius: 10px;
+    }
+
+    .winamp-header {
+      background: #522444;
+      padding: 10px;
+      color: #ffb6c1;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      border-bottom: 1px solid #ff99cc;
+    }
+
+    .display {
+      background: linear-gradient(90deg, #4b2c3f, #6d3f5b);
+      color: #ffccdd;
+      padding: 10px;
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      border: 1px solid #ff99cc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #ffb6c1, inset 0 0 5px #4b2c3f;
+      position: relative;
+      overflow: hidden;
+      height: 40px;
+    }
+
+    .display span {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll 10s linear infinite;
+      position: absolute;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .progress-bar-container {
+      margin-top: 10px;
+      height: 5px;
+      width: 100%;
+      background-color: #552f44;
+      border: 1px solid #ff99cc;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff99cc, #ff66b2);
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 5px #ff99cc;
+      }
+      100% {
+        box-shadow: 0 0 10px #ff66cc;
+      }
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .controls button {
+      background: #522444;
+      color: #ffc0cb;
+      border: 1px solid #ff99cc;
+      padding: 5px 10px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .controls button:hover {
+      background: #ff99cc;
+      color: #3b1f2b;
+    }
+
+    .playlist {
+      background: #3b1f2b;
+      padding: 10px;
+      margin-top: 15px;
+      border: 1px solid #ff99cc;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .track {
+      margin: 5px 0;
+      cursor: pointer;
+      color: #ffe6f0;
+    }
+
+    .track:hover {
+      background: #ff99cc;
+      color: #3b1f2b;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .back-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #522444;
+      color: #ffc0cb;
+      padding: 8px 16px;
+      border: 2px solid #ff99cc;
+      border-radius: 5px;
+      text-decoration: none;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .back-button:hover {
+      background-color: #ff99cc;
+      color: #3b1f2b;
+    }
+
+
+    .love {
+  position: absolute;
+  font-size: 24px;
+  animation: floatLove 2.5s ease-in forwards;
+  pointer-events: none;
+  color: #ff5ca4;
+  opacity: 0.8;
+}
+
+@keyframes floatLove {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="winamp-container">
+    <div class="winamp-header">WINAMP</div>
+    <div class="display">
+      <span id="display-text">00:00 - Tidak ada lagu diputar</span>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="controls">
+      <button onclick="playTrack()">▶ Play</button>
+      <button onclick="pauseTrack()">⏸ Pause</button>
+      <button onclick="stopTrack()">⏹ Stop</button>
+    </div>
+
+    <div class="playlist" id="playlist">
+      <div class="track" data-src="music/ANDMESH - ANUGERAH TERINDAH.mp3">1. ANDMESH - ANUGERAH TERINDAH</div>
+      <div class="track" data-src="music/Andmesh Kamaleng - Kumau Dia.mp3">2. Andmesh - Kumau Dia</div>
+      <div class="track" data-src="music/Glenn Fredly - Kasih Putih.mp3">3. Glenn Fredly - Kasih Putih</div>
+      <div class="track" data-src="music/Haico - Bahagia Bersamamu.mp3">4. Haico - Bahagia Bersamamu</div>
+      <div class="track" data-src="music/Raim Laode - Komang.mp3">5. Raim Laode - Komang</div>
+      <div class="track" data-src="music/Raim Laode - Lesung Pipi.mp3">6. Raim Laode - Lesung Pipi</div>
+      <div class="track" data-src="music/Salma Salsabila - Berharap pada timur.mp3">7. Salma Salsabila - Berharap pada Timur</div>
+      <div class="track" data-src="music/Tiara Andini – Kupu - Kupu.mp3">8. Tiara Andini – Kupu-Kupu</div>
+      <div class="track" data-src="music/Virgoun - Bukti.mp3">9. Virgoun - Bukti</div>
+      <div class="track" data-src="music/Yovie, HIVI! - Semanjak ada dirimu.mp3">10. Yovie, HIVI! - Semenjak Ada Dirimu</div>
+    </div>
+    
+    <audio id="audio" controls></audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const displayText = document.getElementById('display-text');
+    const progressBar = document.getElementById('progress-bar');
+    let currentTrack = null;
+
+    document.querySelectorAll('.track').forEach(track => {
+      track.addEventListener('click', () => {
+        const src = track.getAttribute('data-src');
+        currentTrack = track.textContent;
+        audio.src = src;
+        audio.play();
+      });
+    });
+
+    function playTrack() {
+      if (audio.src) audio.play();
+    }
+
+    function pauseTrack() {
+      if (audio.src) audio.pause();
+    }
+
+    function stopTrack() {
+      if (audio.src) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      const mins = Math.floor(audio.currentTime / 60).toString().padStart(2, '0');
+      const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+      displayText.textContent = `${mins}:${secs} - ${currentTrack || 'Tidak ada lagu diputar'}`;
+
+      // Update progress bar
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+    });
+  </script>
+  <a href="index.html" class="back-button">⏮ Kembali ke Halaman Utama</a>
+  <script>
+  function createLove() {
+    const love = document.createElement('div');
+    love.classList.add('love');
+    love.textContent = '❤️';
+    love.style.left = Math.random() * 100 + 'vw';
+    love.style.top = '100vh';
+    document.body.appendChild(love);
+
+    setTimeout(() => {
+      love.remove();
+    }, 4000);
+  }
+
+  setInterval(createLove, 200); // Munculkan love setiap 0.8 detik
+</script>
+
+</body>
+</html>

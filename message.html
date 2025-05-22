@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Message</title>
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courgette', cursive;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      background: url('images/bg message.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: brightness(0.);
+    }
+    .message-box {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    a.back {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 12px 24px;
+      background: #32CD32;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 12px;
+      box-shadow: 0 4px #2e8b2e;
+      transition: 0.2s;
+    }
+    a.back:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #2e8b2e;
+    }
+    #playMusicBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #FF69B4;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <h1>Happy Birthday Kaka El!</h1>
+    <p>
+      Selamat ulang tahun ke-26 buat perempuan paling hebat yang pernah hadir di hidupku<br>
+      Di umur ini, kamu nggak cuma makin dewasa, tapi juga makin bikin aku yakin: kamu yang aku mau ajak jalan bareng sampai tua<br>
+      Terima kasih udah sabar sama aku, udah nerima aku yang jauh dari sempurna, dan tetap bertahan meski kadang aku nyebelin.<br><br>
+      Kamu nggak cuma pacar, tapi juga semangat, tenang, dan rumah buat hatiku.<br>
+      Di ulang tahun ini, aku nggak janji bawa kamu ke tempat mewah,<br>
+      tapi aku serius lagi usaha buat bawa kamu ke tempat paling sakral—pelaminan.<br>
+      Tunggu aku, ya. Lagi proses jadi versi terbaik yang pantas buat jagain kamu seumur hidup.<br>
+      Semoga Allah selalu jaga kamu, bahagiain kamu, dan tuntun langkah kamu ke semua hal baik—termasuk ke aku, kalau aku memang yang terbaik di mata-Nya. Aamiin.<br>
+      Aku sayang kamu, dan akan terus sayang, sampai panggilan “sayang” itu berubah jadi “istriku.”
+      Love you always!
+    </p>
+    <a class="back" href="index.html">Kembali ke Halaman Utama</a>
+  </div>
+
+  <audio id="bgm" loop>
+    <source src="music/Rizky Febian - Hingga Tua Bersama (Saxophone).mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="playMusicBtn">Putar Musik 🎵</button>
+
+  <script>
+    const audio = document.getElementById('bgm');
+    const playButton = document.getElementById('playMusicBtn');
+
+    // Coba autoplay
+    window.addEventListener('DOMContentLoaded', () => {
+      audio.play()
+        .then(() => {
+          console.log('Musik berhasil diputar otomatis');
+        })
+        .catch((err) => {
+          console.warn('Autoplay gagal, tampilkan tombol manual');
+          playButton.style.display = 'inline-block';
+        });
+    });
+
+    // Manual play jika autoplay gagal
+    playButton.addEventListener('click', () => {
+      audio.play();
+      playButton.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
